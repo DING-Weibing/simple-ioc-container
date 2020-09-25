@@ -69,6 +69,6 @@ public class MyIoCContainer {
 
     // 从容器中获取一个bean
     public Object getBean(String beanName) {
-        return beanPool.get(beanName);
+        return beanPool.getOrDefault(beanName, null);
     }
 }
