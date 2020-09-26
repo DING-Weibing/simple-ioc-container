@@ -29,7 +29,7 @@ public class MyIoCContainer {
         try {
             beanDef.load(MyIoCContainer.class.getResourceAsStream("/beans.properties"));
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         // Init bean pool
@@ -42,7 +42,7 @@ public class MyIoCContainer {
                     Object instance = Class.forName((String) beanId).getConstructor().newInstance();
                     beanPool.put((String) beanName, instance);
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | ClassNotFoundException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
             });
         }
@@ -63,7 +63,7 @@ public class MyIoCContainer {
         try {
             field.set(bean, beanPool.get(field.getName()));
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
